@@ -755,6 +755,7 @@ static int sqlite3Prepare(
       Btree *pBt = db->aDb[i].pBt;
       if( pBt ){
         assert( sqlite3BtreeHoldsMutex(pBt) );
+        //前面调用sqlite3BtreeEnterAll函数加锁的时候，锁不一定成功，所以这里要判断是否加锁成功
         rc = sqlite3BtreeSchemaLocked(pBt);
         if( rc ){
           const char *zDb = db->aDb[i].zDbSName;
